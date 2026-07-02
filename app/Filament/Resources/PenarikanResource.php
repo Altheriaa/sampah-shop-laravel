@@ -3,30 +3,32 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PenarikanResource\Pages;
-use App\Filament\Resources\PenarikanResource\RelationManagers;
 use App\Models\Penarikan;
-use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PenarikanResource extends Resource
 {
-    protected static ?string $model = Penarikan::class;
+    protected static string|null $model = Penarikan::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static \UnitEnum|string|null $navigationGroup = 'Master Data Transaksi';
+    protected static string|null $navigationLabel = 'Tarik Tabungan';
+    protected static string|null $pluralModelLabel = 'Tarik Tabungan';
 
-    public static function form(Form $form): Form
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-banknotes';
+
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('id_anggota')
-                    ->numeric(),
-                Forms\Components\DatePicker::make('tanggal'),
-                Forms\Components\TextInput::make('jumlah')
+        return $schema
+            ->components([
+                \Filament\Forms\Components\Select::make('id_anggota')
+                    ->label('Anggota')
+                    ->options(\App\Models\Anggota::all()->mapWithKeys(fn($a) => [$a->id_anggota => 'AGT' . str_pad($a->id_anggota, 4, '0', STR_PAD_LEFT) . ' - ' . $a->nama_anggota]))
+                    ->searchable(),
+                \Filament\Forms\Components\DatePicker::make('tanggal'),
+                \Filament\Forms\Components\TextInput::make('jumlah')
                     ->numeric(),
             ]);
     }
@@ -36,7 +38,8 @@ class PenarikanResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id_anggota')
-                    ->numeric()
+                    ->label('Anggota')
+                    ->formatStateUsing(fn ($state) => 'AGT' . str_pad($state, 4, '0', STR_PAD_LEFT) . ' - ' . \App\Models\Anggota::find($state)?->nama_anggota)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('tanggal')
                     ->date()
@@ -44,33 +47,21 @@ class PenarikanResource extends Resource
                 Tables\Columns\TextColumn::make('jumlah')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                //
-            ])
+            ->filters([])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                \Filament\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                \Filament\Actions\BulkActionGroup::make([
+                    \Filament\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array

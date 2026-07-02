@@ -3,27 +3,27 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\JenisSampahResource\Pages;
-use App\Filament\Resources\JenisSampahResource\RelationManagers;
 use App\Models\JenisSampah;
-use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class JenisSampahResource extends Resource
 {
-    protected static ?string $model = JenisSampah::class;
+    protected static string|null $model = JenisSampah::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static \UnitEnum|string|null $navigationGroup = 'Master Data Sampah';
+    protected static string|null $navigationLabel = 'Jenis Sampah';
+    protected static string|null $pluralModelLabel = 'Jenis Sampah';
 
-    public static function form(Form $form): Form
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-tag';
+
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('jenis_sampah')
+        return $schema
+            ->components([
+                \Filament\Forms\Components\TextInput::make('jenis_sampah')
                     ->maxLength(30),
             ]);
     }
@@ -32,35 +32,26 @@ class JenisSampahResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('id_jenis')
+                    ->label('ID')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('jenis_sampah')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                //
-            ])
+            ->filters([])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                \Filament\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                \Filament\Actions\BulkActionGroup::make([
+                    \Filament\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array

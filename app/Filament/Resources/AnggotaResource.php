@@ -3,43 +3,42 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\AnggotaResource\Pages;
-use App\Filament\Resources\AnggotaResource\RelationManagers;
 use App\Models\Anggota;
-use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class AnggotaResource extends Resource
 {
-    protected static ?string $model = Anggota::class;
+    protected static string|null $model = Anggota::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string|null $navigationLabel = 'Data Nasabah';
+    protected static string|null $pluralModelLabel = 'Data Nasabah';
 
-    public static function form(Form $form): Form
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-user-group';
+
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('nama_anggota')
+        return $schema
+            ->components([
+                \Filament\Forms\Components\TextInput::make('nama_anggota')
                     ->maxLength(50),
-                Forms\Components\TextInput::make('umur')
+                \Filament\Forms\Components\TextInput::make('umur')
                     ->maxLength(15),
-                Forms\Components\TextInput::make('jenis_kelamin')
+                \Filament\Forms\Components\TextInput::make('jenis_kelamin')
                     ->maxLength(10),
-                Forms\Components\Textarea::make('alamat')
+                \Filament\Forms\Components\Textarea::make('alamat')
                     ->columnSpanFull(),
-                Forms\Components\TextInput::make('username')
+                \Filament\Forms\Components\TextInput::make('username')
                     ->maxLength(50),
-                Forms\Components\TextInput::make('password')
+                \Filament\Forms\Components\TextInput::make('password')
                     ->password()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('level')
+                \Filament\Forms\Components\TextInput::make('level')
                     ->maxLength(10)
                     ->default('anggota'),
-                Forms\Components\TextInput::make('no_hp')
+                \Filament\Forms\Components\TextInput::make('no_hp')
                     ->maxLength(120),
             ]);
     }
@@ -48,6 +47,11 @@ class AnggotaResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('id_anggota')
+                    ->label('ID Anggota')
+                    ->formatStateUsing(fn ($state) => 'AGT' . str_pad($state, 4, '0', STR_PAD_LEFT))
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('nama_anggota')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('umur')
@@ -60,33 +64,23 @@ class AnggotaResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('no_hp')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                \Filament\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                \Filament\Actions\BulkActionGroup::make([
+                    \Filament\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array

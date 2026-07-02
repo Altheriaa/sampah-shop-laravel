@@ -3,78 +3,62 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\TabunganResource\Pages;
-use App\Filament\Resources\TabunganResource\RelationManagers;
-use App\Models\Tabungan;
-use Filament\Forms;
-use Filament\Forms\Form;
+use App\Models\Anggota;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TabunganResource extends Resource
 {
-    protected static ?string $model = Tabungan::class;
+    protected static string|null $model = Anggota::class;
+    protected static \UnitEnum|string|null $navigationGroup = 'Master Data Transaksi';
+    protected static string|null $navigationLabel = 'Tabungan Sampah';
+    protected static string|null $pluralModelLabel = 'Tabungan Sampah';
+    protected static string|null $slug = 'tabungan';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-book-open';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('id_user')
-                    ->numeric(),
-                Forms\Components\TextInput::make('tabungan')
-                    ->numeric(),
-            ]);
+        return $schema
+            ->components([]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id_user')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('id_anggota')
+                    ->label('ID Anggota')
+                    ->formatStateUsing(fn ($state) => 'AGT' . str_pad($state, 4, '0', STR_PAD_LEFT))
+                    ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('tabungan')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('nama_anggota')
+                    ->label('Nama Anggota')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('saldo_tabungan')
+                    ->label('Tabungan (Rp)')
+                    ->money('IDR', locale: 'id'),
             ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+            ->filters([])
+            ->actions([])
+            ->bulkActions([]);
     }
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array
     {
         return [
             'index' => Pages\ListTabungans::route('/'),
-            'create' => Pages\CreateTabungan::route('/create'),
-            'edit' => Pages\EditTabungan::route('/{record}/edit'),
         ];
+    }
+
+    public static function canCreate(): bool
+    {
+        return false;
     }
 }

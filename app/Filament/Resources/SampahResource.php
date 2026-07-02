@@ -3,35 +3,37 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\SampahResource\Pages;
-use App\Filament\Resources\SampahResource\RelationManagers;
 use App\Models\Sampah;
-use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class SampahResource extends Resource
 {
-    protected static ?string $model = Sampah::class;
+    protected static string|null $model = Sampah::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static \UnitEnum|string|null $navigationGroup = 'Master Data Sampah';
+    protected static string|null $navigationLabel = 'Data Sampah';
+    protected static string|null $pluralModelLabel = 'Data Sampah';
 
-    public static function form(Form $form): Form
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-archive-box';
+
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('nama_sampah')
+        return $schema
+            ->components([
+                \Filament\Forms\Components\TextInput::make('nama_sampah')
                     ->maxLength(50),
-                Forms\Components\TextInput::make('id_jenis')
+                \Filament\Forms\Components\Select::make('id_jenis')
+                    ->label('Jenis Sampah')
+                    ->options(\App\Models\JenisSampah::pluck('jenis_sampah', 'id_jenis'))
+                    ->searchable(),
+                \Filament\Forms\Components\TextInput::make('harga_beli')
                     ->numeric(),
-                Forms\Components\TextInput::make('harga_beli')
+                \Filament\Forms\Components\TextInput::make('harga_jual')
                     ->numeric(),
-                Forms\Components\TextInput::make('harga_jual')
-                    ->numeric(),
-                Forms\Components\TextInput::make('stok')
+                \Filament\Forms\Components\TextInput::make('stok')
                     ->numeric(),
             ]);
     }
@@ -40,10 +42,14 @@ class SampahResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('id_sampah')
+                    ->label('ID')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('nama_sampah')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('id_jenis')
-                    ->numeric()
+                    ->label('Jenis')
+                    ->formatStateUsing(fn ($state) => \App\Models\JenisSampah::find($state)?->jenis_sampah ?? $state)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('harga_beli')
                     ->numeric()
@@ -54,33 +60,21 @@ class SampahResource extends Resource
                 Tables\Columns\TextColumn::make('stok')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                //
-            ])
+            ->filters([])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                \Filament\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                \Filament\Actions\BulkActionGroup::make([
+                    \Filament\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array

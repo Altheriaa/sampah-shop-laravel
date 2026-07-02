@@ -3,34 +3,35 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PenjualanResource\Pages;
-use App\Filament\Resources\PenjualanResource\RelationManagers;
 use App\Models\Penjualan;
-use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PenjualanResource extends Resource
 {
-    protected static ?string $model = Penjualan::class;
+    protected static string|null $model = Penjualan::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string|null $navigationLabel = 'Data Penjualan';
+    protected static string|null $pluralModelLabel = 'Data Penjualan';
 
-    public static function form(Form $form): Form
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-currency-dollar';
+
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('id_sampah')
+        return $schema
+            ->components([
+                \Filament\Forms\Components\Select::make('id_sampah')
+                    ->label('Sampah')
+                    ->options(\App\Models\Sampah::pluck('nama_sampah', 'id_sampah'))
+                    ->searchable(),
+                \Filament\Forms\Components\DatePicker::make('tanggal'),
+                \Filament\Forms\Components\TextInput::make('berat')
                     ->numeric(),
-                Forms\Components\DatePicker::make('tanggal'),
-                Forms\Components\TextInput::make('berat')
+                \Filament\Forms\Components\TextInput::make('total')
                     ->numeric(),
-                Forms\Components\TextInput::make('total')
-                    ->numeric(),
-                Forms\Components\TextInput::make('petugas')
+                \Filament\Forms\Components\TextInput::make('petugas')
                     ->maxLength(50),
             ]);
     }
@@ -40,7 +41,8 @@ class PenjualanResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id_sampah')
-                    ->numeric()
+                    ->label('Sampah')
+                    ->formatStateUsing(fn ($state) => \App\Models\Sampah::find($state)?->nama_sampah ?? $state)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('tanggal')
                     ->date()
@@ -53,33 +55,21 @@ class PenjualanResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('petugas')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                //
-            ])
+            ->filters([])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                \Filament\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                \Filament\Actions\BulkActionGroup::make([
+                    \Filament\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array

@@ -3,38 +3,42 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PembelianResource\Pages;
-use App\Filament\Resources\PembelianResource\RelationManagers;
 use App\Models\Pembelian;
-use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PembelianResource extends Resource
 {
-    protected static ?string $model = Pembelian::class;
+    protected static string|null $model = Pembelian::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static \UnitEnum|string|null $navigationGroup = 'Master Data Transaksi';
+    protected static string|null $navigationLabel = 'Pembelian Sampah';
+    protected static string|null $pluralModelLabel = 'Pembelian Sampah';
 
-    public static function form(Form $form): Form
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-shopping-cart';
+
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('id_sampah')
+        return $schema
+            ->components([
+                \Filament\Forms\Components\Select::make('id_sampah')
+                    ->label('Sampah')
+                    ->options(\App\Models\Sampah::pluck('nama_sampah', 'id_sampah'))
+                    ->searchable(),
+                \Filament\Forms\Components\DatePicker::make('tanggal'),
+                \Filament\Forms\Components\Select::make('id_anggota')
+                    ->label('Anggota')
+                    ->options(\App\Models\Anggota::all()->mapWithKeys(fn($a) => [$a->id_anggota => 'AGT' . str_pad($a->id_anggota, 4, '0', STR_PAD_LEFT) . ' - ' . $a->nama_anggota]))
+                    ->searchable(),
+                \Filament\Forms\Components\TextInput::make('berat')
                     ->numeric(),
-                Forms\Components\DatePicker::make('tanggal'),
-                Forms\Components\TextInput::make('id_anggota')
+                \Filament\Forms\Components\TextInput::make('total')
                     ->numeric(),
-                Forms\Components\TextInput::make('berat')
-                    ->numeric(),
-                Forms\Components\TextInput::make('total')
-                    ->numeric(),
-                Forms\Components\Textarea::make('ket')
+                \Filament\Forms\Components\Textarea::make('ket')
                     ->columnSpanFull(),
-                Forms\Components\TextInput::make('tabungan')
+                \Filament\Forms\Components\TextInput::make('tabungan')
                     ->maxLength(5),
             ]);
     }
@@ -44,13 +48,15 @@ class PembelianResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id_sampah')
-                    ->numeric()
+                    ->label('Sampah')
+                    ->formatStateUsing(fn ($state) => \App\Models\Sampah::find($state)?->nama_sampah ?? $state)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('tanggal')
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('id_anggota')
-                    ->numeric()
+                    ->label('Anggota')
+                    ->formatStateUsing(fn ($state) => 'AGT' . str_pad($state, 4, '0', STR_PAD_LEFT) . ' - ' . \App\Models\Anggota::find($state)?->nama_anggota)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('berat')
                     ->numeric()
@@ -60,33 +66,21 @@ class PembelianResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('tabungan')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                //
-            ])
+            ->filters([])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                \Filament\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                \Filament\Actions\BulkActionGroup::make([
+                    \Filament\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array

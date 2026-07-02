@@ -15,19 +15,17 @@ class MigrateOldDataCommand extends Command
         
         // 1. Users
         $this->info('Migrating users...');
-        $users = \DB::connection('mysql_old')->table('user')->get();
+        $users = \DB::connection('mysql_old')->table('users')->get();
         foreach($users as $u) {
             \App\Models\User::create([
                 'id' => $u->id_user,
-                'name' => $u->nama_lengkap,
-                'email' => str_contains($u->username, '@') ? $u->username : $u->username . '@sampah.shop',
+                'name' => $u->nama_user,
+                'email' => str_contains($u->email ?? $u->username, '@') ? ($u->email ?? $u->username) : $u->username . '@sampah.shop',
                 'password' => \Hash::make('password123'),
-                'nama_lengkap' => $u->nama_lengkap,
-                'jenis_kelamin' => $u->jenis_kelamin,
-                'tanggal_lahir' => ($u->tanggal_lahir === '0000-00-00' ? null : $u->tanggal_lahir),
-                'alamat' => $u->alamat,
-                'hp' => $u->hp,
-                'status' => $u->status,
+                'username' => $u->username,
+                'foto_user' => $u->foto_user,
+                'level' => $u->level,
+                'jabatan' => $u->jabatan,
             ]);
         }
         
