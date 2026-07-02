@@ -10,6 +10,16 @@ class Anggota extends Model
     protected $primaryKey = 'id_anggota';
     protected $guarded = [];
 
+    public function pembelian()
+    {
+        return $this->hasMany(\App\Models\Pembelian::class, 'id_anggota', 'id_anggota');
+    }
+
+    public function penarikan()
+    {
+        return $this->hasMany(\App\Models\Penarikan::class, 'id_anggota', 'id_anggota');
+    }
+
     public function getSaldoTabunganAttribute()
     {
         $masuk = \App\Models\Pembelian::where('id_anggota', $this->id_anggota)
