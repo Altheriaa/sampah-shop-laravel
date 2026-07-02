@@ -26,20 +26,43 @@ class PembelianResource extends Resource
                 \Filament\Forms\Components\Select::make('id_sampah')
                     ->label('Sampah')
                     ->options(\App\Models\Sampah::pluck('nama_sampah', 'id_sampah'))
-                    ->searchable(),
-                \Filament\Forms\Components\DatePicker::make('tanggal'),
+                    ->searchable()
+                    ->live()
+                    ->afterStateUpdated(function ($state, $set, $get) {
+                        $sampah = \App\Models\Sampah::find($state);
+                        $berat = (float) $get('berat');
+                        if ($sampah && $berat) {
+                            $set('total', $sampah->harga_beli * $berat);
+                        }
+                    }),
+                \Filament\Forms\Components\DatePicker::make('tanggal')
+                    ->default(now()),
                 \Filament\Forms\Components\Select::make('id_anggota')
                     ->label('Anggota')
                     ->options(\App\Models\Anggota::all()->mapWithKeys(fn($a) => [$a->id_anggota => 'AGT' . str_pad($a->id_anggota, 4, '0', STR_PAD_LEFT) . ' - ' . $a->nama_anggota]))
                     ->searchable(),
                 \Filament\Forms\Components\TextInput::make('berat')
-                    ->numeric(),
+                    ->numeric()
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(function ($state, $set, $get) {
+                        $sampah = \App\Models\Sampah::find($get('id_sampah'));
+                        $berat = (float) $state;
+                        if ($sampah && $berat) {
+                            $set('total', $sampah->harga_beli * $berat);
+                        }
+                    }),
                 \Filament\Forms\Components\TextInput::make('total')
-                    ->numeric(),
+                    ->numeric()
+                    ->readOnly()
+                    ->prefix('Rp'),
                 \Filament\Forms\Components\Textarea::make('ket')
                     ->columnSpanFull(),
-                \Filament\Forms\Components\TextInput::make('tabungan')
-                    ->maxLength(5),
+                \Filament\Forms\Components\Radio::make('tabungan')
+                    ->options([
+                        'Ya' => 'Ya, simpan ke tabungan sistem',
+                        'Tidak' => 'Tidak, berikan uang tunai langsung',
+                    ])
+                    ->default('Ya'),
             ]);
     }
 
@@ -75,7 +98,8 @@ class PembelianResource extends Resource
                 \Filament\Actions\BulkActionGroup::make([
                     \Filament\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('tanggal', 'desc');
     }
 
     public static function getRelations(): array

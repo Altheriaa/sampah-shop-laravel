@@ -13,7 +13,7 @@ class Anggota extends Model
     public function getSaldoTabunganAttribute()
     {
         $masuk = \App\Models\Pembelian::where('id_anggota', $this->id_anggota)
-            ->where('tabungan', 'ya')
+            ->whereIn('tabungan', ['ya', 'Ya'])
             ->sum('total');
         $keluar = \App\Models\Penarikan::where('id_anggota', $this->id_anggota)
             ->sum('jumlah');

@@ -26,10 +26,38 @@ class PenarikanResource extends Resource
                 \Filament\Forms\Components\Select::make('id_anggota')
                     ->label('Anggota')
                     ->options(\App\Models\Anggota::all()->mapWithKeys(fn($a) => [$a->id_anggota => 'AGT' . str_pad($a->id_anggota, 4, '0', STR_PAD_LEFT) . ' - ' . $a->nama_anggota]))
-                    ->searchable(),
-                \Filament\Forms\Components\DatePicker::make('tanggal'),
+                    ->searchable()
+                    ->live()
+                    ->afterStateUpdated(function ($state, $set) {
+                        $anggota = \App\Models\Anggota::find($state);
+                        $set('saldo_tersedia', $anggota ? $anggota->saldo_tabungan : 0);
+                    }),
+                \Filament\Forms\Components\TextInput::make('saldo_tersedia')
+                    ->label('Saldo Tersedia')
+                    ->numeric()
+                    ->readOnly()
+                    ->prefix('Rp')
+                    ->dehydrated(false)
+                    ->formatStateUsing(function ($get) {
+                        $anggota = \App\Models\Anggota::find($get('id_anggota'));
+                        return $anggota ? $anggota->saldo_tabungan : 0;
+                    }),
+                \Filament\Forms\Components\DatePicker::make('tanggal')
+                    ->default(now()),
                 \Filament\Forms\Components\TextInput::make('jumlah')
-                    ->numeric(),
+                    ->label('Jumlah Penarikan')
+                    ->numeric()
+                    ->prefix('Rp')
+                    ->rules([
+                        fn ($get) => function (string $attribute, $value, \Closure $fail) use ($get) {
+                            // Hitung saldo riil = saldo saat ini (tambah jumlah sebelumnya jika sedang diedit)
+                            $saldo = (float) $get('saldo_tersedia');
+                            if ($value > $saldo) {
+                                $fail('Jumlah penarikan tidak boleh melebihi saldo tersedia (Rp ' . number_format($saldo, 0, ',', '.') . ').');
+                            }
+                        },
+                    ]),
+                
             ]);
     }
 
@@ -56,7 +84,8 @@ class PenarikanResource extends Resource
                 \Filament\Actions\BulkActionGroup::make([
                     \Filament\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('tanggal', 'desc');
     }
 
     public static function getRelations(): array
