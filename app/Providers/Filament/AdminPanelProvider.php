@@ -28,8 +28,10 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->sidebarCollapsibleOnDesktop()
+            ->brandName('Aplikasi Start-Up Bank Sampah')
+            ->font('Poppins')
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => \Filament\Support\Colors\Color::Blue,
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
@@ -38,6 +40,23 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([])
+            ->navigationItems([
+                \Filament\Navigation\NavigationItem::make('Laporan Data Nasabah')
+                    ->group('Data Laporan')
+                    ->url(fn (): string => url('/cetak/nasabah'))
+                    ->icon('heroicon-o-printer')
+                    ->openUrlInNewTab(),
+                \Filament\Navigation\NavigationItem::make('Laporan Data Sampah')
+                    ->group('Data Laporan')
+                    ->url(fn (): string => url('/cetak/sampah'))
+                    ->icon('heroicon-o-printer')
+                    ->openUrlInNewTab(),
+                \Filament\Navigation\NavigationItem::make('Laporan Data Transaksi')
+                    ->group('Data Laporan')
+                    ->url(fn (): string => url('/cetak/transaksi'))
+                    ->icon('heroicon-o-printer')
+                    ->openUrlInNewTab(),
+            ])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

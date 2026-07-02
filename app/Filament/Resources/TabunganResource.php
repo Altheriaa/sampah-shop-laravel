@@ -41,19 +41,25 @@ class TabunganResource extends Resource
                     ->money('IDR', locale: 'id'),
             ])
             ->filters([])
-            ->actions([])
+            ->actions([
+                \Filament\Actions\ViewAction::make(),
+            ])
             ->bulkActions([]);
     }
 
     public static function getRelations(): array
     {
-        return [];
+        return [
+            TabunganResource\RelationManagers\PembelianRelationManager::class,
+            TabunganResource\RelationManagers\PenarikanRelationManager::class,
+        ];
     }
 
     public static function getPages(): array
     {
         return [
             'index' => Pages\ListTabungans::route('/'),
+            'view' => Pages\ViewTabungan::route('/{record}'),
         ];
     }
 

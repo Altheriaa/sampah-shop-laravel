@@ -43,7 +43,9 @@ class SampahResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id_sampah')
-                    ->label('ID')
+                    ->label('Kode')
+                    ->formatStateUsing(fn ($state) => 'KD' . str_pad($state, 2, '0', STR_PAD_LEFT))
+                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('nama_sampah')
                     ->searchable(),

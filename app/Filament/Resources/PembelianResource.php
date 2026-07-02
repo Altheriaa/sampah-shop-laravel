@@ -70,6 +70,11 @@ class PembelianResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('id_pembelian')
+                    ->label('No Transaksi')
+                    ->formatStateUsing(fn ($state) => 'BELI' . str_pad($state, 4, '0', STR_PAD_LEFT))
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('id_sampah')
                     ->label('Sampah')
                     ->formatStateUsing(fn ($state) => \App\Models\Sampah::find($state)?->nama_sampah ?? $state)

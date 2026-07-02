@@ -33,7 +33,9 @@ class JenisSampahResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id_jenis')
-                    ->label('ID')
+                    ->label('Kode Jenis')
+                    ->formatStateUsing(fn ($state) => 'JN' . str_pad($state, 3, '0', STR_PAD_LEFT))
+                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('jenis_sampah')
                     ->searchable(),
