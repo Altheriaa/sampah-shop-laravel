@@ -2,13 +2,26 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasName;
+use Filament\Panel;
 
-class Anggota extends Model
+class Anggota extends Authenticatable implements FilamentUser, HasName
 {
     protected $table = 'anggota';
     protected $primaryKey = 'id_anggota';
     protected $guarded = [];
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $panel->getId() === 'anggota';
+    }
+
+    public function getFilamentName(): string
+    {
+        return $this->nama_anggota ?? 'Anggota';
+    }
 
     public function pembelian()
     {

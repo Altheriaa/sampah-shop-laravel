@@ -34,6 +34,9 @@ class AnggotaResource extends Resource
                     ->maxLength(50),
                 \Filament\Forms\Components\TextInput::make('password')
                     ->password()
+                    ->dehydrateStateUsing(fn ($state) => \Illuminate\Support\Facades\Hash::make($state))
+                    ->dehydrated(fn (?string $state): bool => filled($state))
+                    ->required(fn (string $context): bool => $context === 'create')
                     ->maxLength(255),
                 \Filament\Forms\Components\TextInput::make('level')
                     ->maxLength(10)

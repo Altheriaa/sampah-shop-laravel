@@ -42,6 +42,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        
+        'anggota' => [
+            'driver' => 'session',
+            'provider' => 'anggotas',
+        ],
     ],
 
     /*
@@ -65,6 +70,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', User::class),
+        ],
+        
+        'anggotas' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Anggota::class,
         ],
 
         // 'users' => [
