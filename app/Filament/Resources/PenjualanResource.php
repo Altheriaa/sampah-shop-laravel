@@ -25,12 +25,46 @@ class PenjualanResource extends Resource
                 \Filament\Forms\Components\Select::make('id_sampah')
                     ->label('Sampah')
                     ->options(\App\Models\Sampah::pluck('nama_sampah', 'id_sampah'))
-                    ->searchable(),
-                \Filament\Forms\Components\DatePicker::make('tanggal'),
+                    ->searchable()
+                    ->live()
+                    ->afterStateUpdated(function ($state, $set, $get) {
+                        $sampah = \App\Models\Sampah::find($state);
+                        $berat = (float) $get('berat');
+                        if ($sampah && $berat) {
+                            $set('total', $sampah->harga_jual * $berat);
+                        }
+                    }),
+                \Filament\Forms\Components\DatePicker::make('tanggal')
+                    ->default(now()),
                 \Filament\Forms\Components\TextInput::make('berat')
-                    ->numeric(),
+                    ->numeric()
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(function ($state, $set, $get) {
+                        $sampah = \App\Models\Sampah::find($get('id_sampah'));
+                        $berat = (float) $state;
+                        if ($sampah && $berat) {
+                            $set('total', $sampah->harga_jual * $berat);
+                        }
+                    })
+                    ->rules([
+                        fn (\Filament\Schemas\Components\Utilities\Get $get, ?\Illuminate\Database\Eloquent\Model $record) => function (string $attribute, $value, \Closure $fail) use ($get, $record) {
+                            $sampah = \App\Models\Sampah::find($get('id_sampah'));
+                            if ($sampah) {
+                                // If editing, the available stock is current stock + original weight of this record
+                                $availableStok = $sampah->stok;
+                                if ($record && $record->id_sampah == $sampah->id_sampah) {
+                                    $availableStok += $record->getOriginal('berat');
+                                }
+                                if ($value > $availableStok) {
+                                    $fail('Berat tidak boleh melebihi stok yang tersedia (' . $availableStok . ' Kg).');
+                                }
+                            }
+                        },
+                    ]),
                 \Filament\Forms\Components\TextInput::make('total')
-                    ->numeric(),
+                    ->numeric()
+                    ->readOnly()
+                    ->prefix('Rp'),
                 \Filament\Forms\Components\TextInput::make('petugas')
                     ->maxLength(50),
             ]);
