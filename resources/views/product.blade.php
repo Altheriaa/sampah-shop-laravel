@@ -783,7 +783,7 @@
                         <div class="product-bottom">
                             <div class="product-price">
                                 <span class="price-label">Harga</span>
-                                <span class="price-new">Rp 160.000<span class="price-unit">/buah</span></span>
+                                <span class="price-new">Rp 150.000<span class="price-unit">/buah</span></span>
                                 <span class="size-0">Ukuran: 53x47cm</span>
                                 <span class="thick-0">Ketebalan: 4cm</span>
                             </div>
