@@ -788,7 +788,7 @@
                                 <span class="thick-0">Ketebalan: 4cm</span>
                             </div>
                             <a href="https://wa.me/6285215094145?text=Halo,%20saya%20tertarik%20memesan%20GRC%20dari%20Serat%20Pisang%20ABCA" target="_blank" class="btn-order">
-                                <i class="fab fa-whatsapp"></i>Pesan Sekarang
+                                <i class="fab fa-whatsapp"></i>Pesan
                             </a>
                         </div>
                     </div>
