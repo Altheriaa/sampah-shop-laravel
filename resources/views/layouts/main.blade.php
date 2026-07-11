@@ -34,6 +34,8 @@
     <!-- Custom Theme Override -->
     <link href="{{ asset('css/costum.css') }}" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
     @yield('styles')
 </head>
 
@@ -49,7 +51,6 @@
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg navbar-glass fixed-top">
         <div class="container">
-            <!-- Brand Logo -->
             <a href="{{ url('/') }}" class="navbar-brand d-flex align-items-center gap-2">
                 <span class="brand-icon">
                     <i class="fas fa-recycle"></i>
@@ -59,12 +60,10 @@
                 </h1>
             </a>
 
-            <!-- Mobile Toggler -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- Navbar Menu -->
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto">
                     <a href="{{ url('/') }}" class="nav-item nav-link {{ Request::is('/') ? 'active' : '' }}">
@@ -84,7 +83,6 @@
                     </a>
                 </div>
 
-                <!-- Search Button -->
                 <button type="button" class="btn btn-search ms-lg-3" data-bs-toggle="modal" data-bs-target="#searchModal">
                     <i class="fa fa-search"></i>
                 </button>
@@ -114,7 +112,6 @@
 
     <!-- Footer Start -->
     <footer class="footer-section">
-        <!-- Location Section -->
         <div class="location-section">
             <div class="container">
                 <div class="text-center mb-4 wow fadeInUp" data-wow-delay="0.1s">
@@ -133,11 +130,9 @@
             </div>
         </div>
 
-        <!-- Main Footer -->
         <div class="footer-main">
             <div class="container">
                 <div class="row g-5">
-                    <!-- About Column -->
                     <div class="col-lg-4 col-md-6 wow fadeIn" data-wow-delay="0.1s">
                         <div class="footer-brand">
                             <div class="d-flex align-items-center gap-2 mb-3">
@@ -151,10 +146,10 @@
                                 <strong class="text-accent">SAVE OUR EARTH</strong>
                             </p>
                             <div class="footer-social">
-                                <a href="https://www.instagram.com/ppkormawa_himatifutu21" target="_blank" class="social-link">
+                                <a href="https://www.instagram.com" target="_blank" class="social-link">
                                     <i class="fab fa-instagram"></i>
                                 </a>
-                                <a href="https://wa.me/+6281360274339" target="_blank" class="social-link">
+                                <a href="https://wa.me/+6285215094145" target="_blank" class="social-link">
                                     <i class="fab fa-whatsapp"></i>
                                 </a>
                                 <a href="#" class="social-link">
@@ -167,7 +162,6 @@
                         </div>
                     </div>
 
-                    <!-- Quick Links -->
                     <div class="col-lg-2 col-md-6 wow fadeIn" data-wow-delay="0.2s">
                         <h5 class="text-white mb-4">Menu Cepat</h5>
                         <ul class="footer-links">
@@ -175,23 +169,20 @@
                             <li><a href="{{ url('/profil') }}"><i class="fas fa-angle-right me-2"></i>Profil</a></li>
                             <li><a href="{{ url('/fasilitas') }}"><i class="fas fa-angle-right me-2"></i>Fasilitas</a></li>
                             <li><a href="{{ url('/product') }}"><i class="fas fa-angle-right me-2"></i>Produk</a></li>
-                            <li><a href="{{ url('/anggota') }}"><i class="fas fa-angle-right me-2"></i>Login</a></li>
+                            <li><a href="{{ url('/admin') }}"><i class="fas fa-angle-right me-2"></i>Login</a></li>
                         </ul>
                     </div>
 
-                    <!-- Services -->
                     <div class="col-lg-3 col-md-6 wow fadeIn" data-wow-delay="0.3s">
                         <h5 class="text-white mb-4">Layanan Kami</h5>
                         <ul class="footer-links">
                             <li><a href="#"><i class="fas fa-angle-right me-2"></i>Penjemputan Sampah</a></li>
                             <li><a href="#"><i class="fas fa-angle-right me-2"></i>Setor Sampah</a></li>
-                            <li><a href="#"><i class="fas fa-angle-right me-2"></i>Beli Produk Eco</a></li>
-                            <li><a href="#"><i class="fas fa-angle-right me-2"></i>Konsultasi Gratis</a></li>
-                            <li><a href="#"><i class="fas fa-angle-right me-2"></i>Custom Order</a></li>
+                            <li><a href="{{ url('/product') }}"><i class="fas fa-angle-right me-2"></i>Beli Produk Eco</a></li>
+                            <li><a href="https://wa.me/+6285215094145"><i class="fas fa-angle-right me-2"></i>Konsultasi Gratis</a></li>
                         </ul>
                     </div>
 
-                    <!-- Contact -->
                     <div class="col-lg-3 col-md-6 wow fadeIn" data-wow-delay="0.4s">
                         <h5 class="text-white mb-4">Hubungi Kami</h5>
                         <ul class="footer-contact">
@@ -217,18 +208,12 @@
             </div>
         </div>
 
-        <!-- Copyright -->
         <div class="footer-bottom">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-md-6 text-center text-md-start">
                         <p class="mb-0">
                             &copy; {{ date('Y') }} <strong class="text-white">Bank Sampah Induk Sadar Mandiri</strong>. All Rights Reserved.
-                        </p>
-                    </div>
-                    <div class="col-md-6 text-center text-md-end">
-                        <p class="mb-0">
-                            Designed with <i class="fas fa-heart text-danger"></i> for a Greener Future
                         </p>
                     </div>
                 </div>
@@ -242,7 +227,7 @@
         <i class="bi bi-arrow-up"></i>
     </a>
 
-    <!-- JavaScript Libraries -->
+    <!-- ✅ JavaScript Libraries (URUTAN SUDAH BENAR) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('lib/wow/wow.min.js') }}"></script>

@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 text-center hero-float">
-                    <img class="img-fluid animated fadeInRight" src="img/66.png" alt="Fasilitas Bank Sampah" style="max-height: 350px; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.2));">
+                    <img class="img-fluid animated fadeInRight" src="{{ asset('img/66.png') }}" alt="Fasilitas Bank Sampah" style="max-height: 350px; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.2));">
                 </div>
             </div>
         </div>
@@ -104,23 +104,23 @@
                     </div>
                 </div>
 
-                <!-- LOGAM -->
+                <!-- SERAT PISANG ABACA -->
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                     <div class="service-item text-center">
                         <div class="icon-box mx-auto mb-3">
-                            <i class="fas fa-cogs fa-2x"></i>
+                            <i class="fas fa-seedling fa-2x"></i>
                         </div>
-                        <h5 class="mb-3">LOGAM</h5>
-                        <p class="mb-3 small text-muted">Logam memiliki nilai ekonomis tinggi dan mudah didaur ulang.</p>
+                        <h5 class="mb-3">SERAT PISANG ABACA</h5>
+                        <p class="mb-3 small text-muted">Serat pisang ABACA adalah bahan baku alami yang kuat untuk produk GRC ramah lingkungan.</p>
                         <ul class="list-unstyled text-start small mb-0">
-                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Kaleng aluminium</li>
-                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Kaleng besi/baja</li>
-                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Kawat & kabel</li>
-                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Peralatan dapur logam</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Serat Alami & Kuat</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Bahan Baku GRC</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>100% Organik</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Ramah Lingkungan</li>
                         </ul>
                         <div class="mt-3 pt-3 border-top">
                             <small class="text-primary fw-bold">
-                                <i class="fas fa-tag me-1"></i>Mulai Rp 5.000/kg
+                                <i class="fas fa-tag me-1"></i>Mulai Rp 20.000/kg
                             </small>
                         </div>
                     </div>
@@ -265,6 +265,7 @@
     <div class="container-xxl py-5">
         <div class="container py-5">
             <div class="row g-5 align-items-center">
+                <!-- Kolom Kiri: Judul & Deskripsi -->
                 <div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
                     <div class="about-eyebrow">Testimoni</div>
                     <h1 class="mb-4">Kata Mereka Tentang Kami</h1>
@@ -272,10 +273,10 @@
                         Mendaur ulang sampah adalah tindakan kecil yang berdampak besar. Dengan menjual sampah, kita turut berpartisipasi dalam menjaga keberlanjutan lingkungan sekaligus menambah pemasukan keluarga.
                     </p>
                     <p class="mb-4">
-                        Ayo bergabung dengan ratusan nasabah kami yang sudah merasakan manfaatnya. Sampah bukan lagi barang tidak berguna, tapi sumber penghasilan tambahan!
+                        Ayo bergabung dengan nasabah kami yang sudah merasakan manfaatnya. Sampah bukan lagi barang tidak berguna, tapi sumber penghasilan tambahan!
                     </p>
                     <div class="d-flex gap-3 flex-wrap">
-                        <a class="btn btn-primary rounded-pill px-4" href="https://wa.me/6281360274339">
+                        <a class="btn btn-primary rounded-pill px-4" href="https://wa.me/6285215094145">
                             <i class="fab fa-whatsapp me-2"></i>Gabung Sekarang
                         </a>
                         <a class="btn btn-outline-primary rounded-pill px-4" href="#jenis-sampah">
@@ -283,76 +284,124 @@
                         </a>
                     </div>
                 </div>
+                <!-- ✅ Tutup kolom kiri di atas -->
+
+                <!-- Kolom Kanan: Carousel Testimonial -->
                 <div class="col-lg-7 wow fadeIn" data-wow-delay="0.5s">
-                    <div class="owl-carousel testimonial-carousel">
-                        <!-- Testimonial 1 -->
-                        <div class="testimonial-item bg-white rounded-4 p-4 shadow-sm">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px; flex-shrink: 0;">
-                                    <i class="fas fa-user text-white"></i>
-                                </div>
-                                <div>
-                                    <h5 class="mb-0">Baria Munandar</h5>
-                                    <small class="text-muted">Ketua PPK ORMAWA</small>
+                    <div class="owl-carousel testimonial-carousel-v3">
+                        
+                        <!-- Testimonial 1 - Hijau -->
+                        <div class="testimonial-card tc-green">
+                            <div class="tc-left">
+                                <div class="tc-number">01</div>
+                                <div class="tc-avatar-wrap">
+                                    <div class="tc-avatar">
+                                        <i class="fas fa-user-tie"></i>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
+                            <div class="tc-right">
+                                <div class="tc-quote-mark">"</div>
+                                <div class="tc-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <p class="tc-text">Mendaur ulang sampah adalah tindakan kecil yang berdampak besar. Dengan menjual sampah, kita turut berpartisipasi dalam menjaga keberlanjutan lingkungan sekaligus menambah pemasukan keluarga.</p>
+                                <div class="tc-divider"></div>
+                                <div class="tc-author">
+                                    <h5 class="tc-name">R Agung Efriyo Hadi</h5>
+                                    <span class="tc-role">Rektor Universitas Abulyatama</span>
+                                </div>
                             </div>
-                            <p class="mb-0 text-muted fst-italic">
-                                "Mendaur ulang sampah adalah tindakan kecil yang berdampak besar. Dengan menjual sampah, kita turut berpartisipasi dalam menjaga keberlanjutan lingkungan sekaligus menambah pemasukan keluarga."
-                            </p>
                         </div>
 
-                        <!-- Testimonial 2 -->
-                        <div class="testimonial-item bg-white rounded-4 p-4 shadow-sm">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px; flex-shrink: 0;">
-                                    <i class="fas fa-user text-white"></i>
-                                </div>
-                                <div>
-                                    <h5 class="mb-0">Sanusi</h5>
-                                    <small class="text-muted">Pembimbing PPK Ormawa</small>
+                        <!-- Testimonial 2 - Biru -->
+                        <div class="testimonial-card tc-blue">
+                            <div class="tc-left">
+                                <div class="tc-number">02</div>
+                                <div class="tc-avatar-wrap">
+                                    <div class="tc-avatar">
+                                        <i class="fas fa-user-graduate"></i>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
+                            <div class="tc-right">
+                                <div class="tc-quote-mark">"</div>
+                                <div class="tc-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <p class="tc-text">Sampah bukan lagi barang tidak berguna. Botol plastik, kaleng, dan kertas bekas bisa didaur ulang dan dijual dengan harga yang menguntungkan. Ayo manfaatkan potensi dari sampah!</p>
+                                <div class="tc-divider"></div>
+                                <div class="tc-author">
+                                    <h5 class="tc-name">Cut Rahmawati</h5>
+                                    <span class="tc-role">Dekan Fakultas Teknik Universitas Abulyatama</span>
+                                </div>
                             </div>
-                            <p class="mb-0 text-muted fst-italic">
-                                "Sampah bukan lagi barang tidak berguna. Botol plastik, kaleng, dan kertas bekas bisa didaur ulang dan dijual dengan harga yang menguntungkan. Ayo manfaatkan potensi dari sampah!"
-                            </p>
                         </div>
 
-                        <!-- Testimonial 3 -->
-                        <div class="testimonial-item bg-white rounded-4 p-4 shadow-sm">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px; flex-shrink: 0;">
-                                    <i class="fas fa-user text-white"></i>
-                                </div>
-                                <div>
-                                    <h5 class="mb-0">Ridwan</h5>
-                                    <small class="text-muted">Ketua Himpunan</small>
+                        <!-- Testimonial 3 - Oranye -->
+                        <div class="testimonial-card tc-orange">
+                            <div class="tc-left">
+                                <div class="tc-number">03</div>
+                                <div class="tc-avatar-wrap">
+                                    <div class="tc-avatar">
+                                        <i class="fas fa-chalkboard-teacher"></i>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
+                            <div class="tc-right">
+                                <div class="tc-quote-mark">"</div>
+                                <div class="tc-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <p class="tc-text">Sampah bukanlah akhir dari sebuah barang, melainkan awal dari karya baru yang bisa kita ciptakan.</p>
+                                <div class="tc-divider"></div>
+                                <div class="tc-author">
+                                    <h5 class="tc-name">Ryan Setiawan</h5>
+                                    <span class="tc-role">Kaprodi Sistem Informasi Universitas Abulyatama</span>
+                                </div>
                             </div>
-                            <p class="mb-0 text-muted fst-italic">
-                                "Mari kita mulai mengumpulkan dan menjual sampah untuk mendapatkan penghasilan tambahan! Tidak hanya baik untuk lingkungan, tapi juga untuk kantong kita."
-                            </p>
                         </div>
+
+                        <!-- Testimonial 4 - Ungu -->
+                        <div class="testimonial-card tc-purple">
+                            <div class="tc-left">
+                                <div class="tc-number">04</div>
+                                <div class="tc-avatar-wrap">
+                                    <div class="tc-avatar">
+                                        <span class="fa-stack" style="width:1em; height:1em; line-height:1em; vertical-align:middle;"><i class="fas fa-user fa-stack-1x"></i><i class="fas fa-drafting-compass fa-stack-1x" style="font-size:0.5em; margin-top:8px; margin-left:8px; color:#17a2b8;"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tc-right">
+                                <div class="tc-quote-mark">"</div>
+                                <div class="tc-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <p class="tc-text">Mari kita mulai mengumpulkan dan menjual sampah untuk mendapatkan penghasilan tambahan! Tidak hanya baik untuk lingkungan, tapi juga untuk kantong kita.</p>
+                                <div class="tc-divider"></div>
+                                <div class="tc-author">
+                                    <h5 class="tc-name">Muhammad Zardi</h5>
+                                    <span class="tc-role">Kaprodi Teknik Sipil Universitas Abulyatama</span>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -371,10 +420,10 @@
                         Hubungi kami sekarang untuk jadwal penjemputan atau kunjungi langsung lokasi kami. Tim kami siap membantu Anda!
                     </p>
                     <div class="d-flex gap-3 justify-content-center flex-wrap">
-                        <a href="https://wa.me/6281360274339" class="btn btn-light rounded-pill px-5 py-3">
+                        <a href="https://wa.me/6285215094145" class="btn btn-light rounded-pill px-5 py-3">
                             <i class="fab fa-whatsapp me-2"></i>Chat WhatsApp
                         </a>
-                        <a href="profil.php" class="btn btn-outline-light rounded-pill px-5 py-3">
+                        <a href="{{ url('/profil') }}" class="btn btn-outline-light rounded-pill px-5 py-3">
                             <i class="fas fa-map-marker-alt me-2"></i>Lihat Lokasi
                         </a>
                     </div>
@@ -383,35 +432,43 @@
         </div>
     </div>
     <!-- CTA End -->
-
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2">
-        <i class="bi bi-arrow-up"></i>
-    </a>
-
-    <!-- JavaScript Libraries -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
-
-    <!-- Testimonial Carousel Init -->
-    <script>
-        $(document).ready(function(){
-            $('.testimonial-carousel').owlCarousel({
-                autoplay: true,
-                smartSpeed: 1000,
-                items: 1,
-                loop: true,
-                dots: true,
-                nav: false
-            });
-        });
-    </script>
 @endsection
+
+@push('scripts')
+<script>
+    $(document).ready(function(){
+        $(".testimonial-carousel-v3").owlCarousel({
+            // ✅ Autoplay Settings
+            autoplay: true,              // Aktifkan autoplay
+            autoplayTimeout: 4000,       // Durasi setiap slide (4000ms = 4 detik)
+            autoplayHoverPause: true,    // Pause saat mouse hover
+            autoplaySpeed: 800,          // Kecepatan transisi
+            
+            // Slide Settings
+            items: 1,                    // Jumlah slide yang tampil
+            margin: 0,                   // Jarak antar slide
+            loop: true,                  // Loop terus-menerus
+            
+            // Navigation
+            dots: true,                  // Tampilkan dots navigation
+            nav: false,                  // Sembunyikan arrow navigation
+            
+            // Animation
+            animateOut: 'fadeOut',       // Efek keluar
+            animateIn: 'fadeIn',         // Efek masuk
+            
+            // Responsive
+            responsive: {
+                0: {
+                    items: 1,
+                    margin: 10
+                },
+                768: {
+                    items: 1,
+                    margin: 20
+                }
+            }
+        });
+    });
+</script>
+@endpush

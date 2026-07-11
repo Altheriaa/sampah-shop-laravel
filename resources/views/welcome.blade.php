@@ -39,37 +39,9 @@
                         <a href="#cara-kerja" class="btn btn-light py-3 px-5 rounded-pill shadow-lg">
                             <i class="fas fa-play-circle me-2"></i>Pelajari Cara Kerja
                         </a>
-                        <a href="https://wa.me/+6281360274339" class="btn btn-outline-light py-3 px-5 rounded-pill">
+                        <a href="https://wa.me/+6285215094145" class="btn btn-outline-light py-3 px-5 rounded-pill">
                             <i class="fab fa-whatsapp me-2"></i>Hubungi Kami
                         </a>
-                    </div>
-                    
-                    <!-- Statistics yang lebih compact -->
-                    <div class="row g-3 animated slideInRight">
-                        <div class="col-4">
-                            <div class="text-center p-2">
-                                <div class="h4 fw-bold text-white mb-0">
-                                    <span class="counter" data-target="500">0</span>+
-                                </div>
-                                <small class="text-white-50 d-block" style="font-size: 0.75rem;">Nasabah Aktif</small>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="text-center p-2 border-start border-white-50">
-                                <div class="h4 fw-bold text-white mb-0">
-                                    <span class="counter" data-target="10">0</span>
-                                </div>
-                                <small class="text-white-50 d-block" style="font-size: 0.75rem;">Ton/Bulan</small>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="text-center p-2 border-start border-white-50">
-                                <div class="h4 fw-bold text-white mb-0">
-                                    Rp<span class="counter" data-target="50">0</span>Jt
-                                </div>
-                                <small class="text-white-50 d-block" style="font-size: 0.75rem;">Uang Beredar</small>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -264,7 +236,7 @@
                             </div>
                             <div>
                                 <small class="d-block text-muted" style="font-size: 0.65rem; line-height: 1.2;">Terverifikasi</small>
-                                <strong class="text-dark" style="font-size: 0.8rem; line-height: 1.2;">Bank Sampah Resmi</strong>
+                                <strong class="text-dark" style="font-size: 0.8rem; line-height: 1.2;">Bank Sampah</strong>
                             </div>
                         </div>
                     </div>
@@ -278,9 +250,9 @@
                             </div>
                             <div>
                                 <small class="d-block text-muted" style="font-size: 0.65rem;">Dampak Positif</small>
-                                <strong class="text-dark d-block" style="font-size: 0.85rem;">500+ Keluarga</strong>
+                                <strong class="text-dark d-block" style="font-size: 0.85rem;">Lingkungan Lebih Bersih</strong>
                                 <small class="text-success d-block" style="font-size: 0.75rem;">
-                                    <i class="fas fa-arrow-up me-1"></i>Rp 50 Jt+ Beredar
+                                    <i class="fas fa-arrow-up me-1"></i>Keluarga Sehat
                                 </small>
                             </div>
                         </div>
@@ -398,7 +370,7 @@
                     <a class="btn btn-primary rounded-pill px-4 py-3" href="#cara-kerja">
                         <i class="fas fa-play-circle me-2"></i>Lihat Cara Kerja
                     </a>
-                    <a class="btn btn-outline-primary rounded-pill px-4 py-3" href="https://wa.me/+6281360274339">
+                    <a class="btn btn-outline-primary rounded-pill px-4 py-3" href="https://wa.me/+6285215094145">
                         <i class="fab fa-whatsapp me-2"></i>Konsultasi Gratis
                     </a>
                 </div>
@@ -446,7 +418,7 @@
                         </div>
                     </div>
 
-                    <a href="https://wa.me/+6281360274339" class="btn btn-primary rounded-pill px-4 mt-2">
+                    <a href="https://wa.me/+6285215094145" class="btn btn-primary rounded-pill px-4 mt-2">
                         <i class="fab fa-whatsapp me-2"></i>Mulai Sekarang
                     </a>
                 </div>
@@ -507,11 +479,11 @@
                 <div class="position-relative z-1">
                     <h1 class="display-5 text-white mb-3">Siap Ubah Sampah Jadi Uang?</h1>
                     <p class="text-white-50 mb-4 mx-auto" style="max-width: 600px;">
-                        Bergabunglah dengan 500+ nasabah kami dan mulai dapatkan penghasilan tambahan 
+                        Bergabunglah dengan nasabah kami dan mulai dapatkan penghasilan tambahan 
                         dari sampah rumah tangga Anda. Gratis pendaftaran!
                     </p>
                     <div class="d-flex gap-3 justify-content-center flex-wrap">
-                        <a href="https://wa.me/+6281360274339" class="btn btn-light rounded-pill px-5 py-3">
+                        <a href="https://wa.me/+6285215094145" class="btn btn-light rounded-pill px-5 py-3">
                             <i class="fab fa-whatsapp me-2"></i>Chat WhatsApp
                         </a>
                         <a href="#cara-kerja" class="btn btn-outline-light rounded-pill px-5 py-3">
@@ -588,7 +560,7 @@
         </div>
         
         <!-- Main Button -->
-        <a href="https://wa.me/6281360274339?text=Halo%20Start-Up%20Sampah,%20saya%20ingin%20bertanya%20tentang%20layanan%20pengelolaan%20sampah." 
+        <a href="https://wa.me/6285215094145?text=Halo%20Start-Up%20Sampah,%20saya%20ingin%20bertanya%20tentang%20layanan%20pengelolaan%20sampah." 
         class="wa-float-btn" 
         target="_blank" 
         rel="noopener noreferrer"

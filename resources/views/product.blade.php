@@ -495,9 +495,6 @@
                         <a href="#produk-kami" class="btn btn-light py-3 px-4 rounded-pill">
                             <i class="fas fa-shopping-bag me-2"></i>Lihat Produk
                         </a>
-                        <a href="https://wa.me/6281360024335" class="btn btn-outline-light py-3 px-4 rounded-pill">
-                            <i class="fas fa-tools me-2"></i>Custom Order
-                        </a>
                     </div>
                 </div>
                 <div class="col-lg-6 text-center hero-float">
@@ -508,55 +505,55 @@
     </div>
     <!-- Hero End -->
 
-<!-- Impact Counter Section -->
-<div class="container-fluid impact-section py-5">
-    <div class="container py-4">
-        <div class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
-            <h2 class="text-white mb-3">Komitmen Kami untuk Lingkungan</h2>
-            <p class="text-white-50">Setiap produk yang Anda beli adalah kontribusi nyata untuk bumi yang lebih baik</p>
-        </div>
-        
-        <div class="row g-4">
-            <div class="col-md-3 col-6 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="impact-card">
-                    <div class="impact-card-icon">
-                        <i class="fas fa-recycle"></i>
-                    </div>
-                    <h5 class="impact-card-title">Daur Ulang</h5>
-                    <p class="impact-card-desc">Mengolah sampah menjadi produk bernilai tinggi</p>
-                </div>
+    <!-- Impact Counter Section -->
+    <div class="container-fluid impact-section py-5">
+        <div class="container py-4">
+            <div class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
+                <h2 class="text-white mb-3">Komitmen Kami untuk Lingkungan</h2>
+                <p class="text-white-50">Setiap produk yang Anda beli adalah kontribusi nyata untuk bumi yang lebih baik</p>
             </div>
-            <div class="col-md-3 col-6 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="impact-card">
-                    <div class="impact-card-icon">
-                        <i class="fas fa-box-open"></i>
+            
+            <div class="row g-4">
+                <div class="col-md-3 col-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="impact-card">
+                        <div class="impact-card-icon">
+                            <i class="fas fa-recycle"></i>
+                        </div>
+                        <h5 class="impact-card-title">Daur Ulang</h5>
+                        <p class="impact-card-desc">Mengolah sampah menjadi produk bernilai tinggi</p>
                     </div>
-                    <h5 class="impact-card-title">Kualitas Premium</h5>
-                    <p class="impact-card-desc">Produk tahan lama dengan standar tinggi</p>
                 </div>
-            </div>
-            <div class="col-md-3 col-6 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="impact-card">
-                    <div class="impact-card-icon">
-                        <i class="fas fa-users"></i>
+                <div class="col-md-3 col-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="impact-card">
+                        <div class="impact-card-icon">
+                            <i class="fas fa-box-open"></i>
+                        </div>
+                        <h5 class="impact-card-title">Kualitas Premium</h5>
+                        <p class="impact-card-desc">Produk tahan lama dengan standar tinggi</p>
                     </div>
-                    <h5 class="impact-card-title">Memberdayakan</h5>
-                    <p class="impact-card-desc">Mendukung ekonomi lokal dan komunitas</p>
                 </div>
-            </div>
-            <div class="col-md-3 col-6 wow fadeInUp" data-wow-delay="0.7s">
-                <div class="impact-card">
-                    <div class="impact-card-icon">
-                        <i class="fas fa-tree"></i>
+                <div class="col-md-3 col-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="impact-card">
+                        <div class="impact-card-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h5 class="impact-card-title">Memberdayakan</h5>
+                        <p class="impact-card-desc">Mendukung ekonomi lokal dan komunitas</p>
                     </div>
-                    <h5 class="impact-card-title">Go Green</h5>
-                    <p class="impact-card-desc">Mengurangi jejak karbon untuk masa depan</p>
+                </div>
+                <div class="col-md-3 col-6 wow fadeInUp" data-wow-delay="0.7s">
+                    <div class="impact-card">
+                        <div class="impact-card-icon">
+                            <i class="fas fa-tree"></i>
+                        </div>
+                        <h5 class="impact-card-title">Go Green</h5>
+                        <p class="impact-card-desc">Mengurangi jejak karbon untuk masa depan</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- Impact Counter End -->
+    <!-- Impact Counter End -->
 
     <!-- Value Proposition -->
     <div class="container-fluid py-5">
