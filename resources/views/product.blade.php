@@ -70,7 +70,7 @@
             'features'   => ['Ventilasi Baik', 'Tahan Cuaca', 'Cepat & Hemat Biaya'],
             'rating'     => 4.8,
             'reviews'    => 65,
-            'price'      => 130000,
+            'price'      => 115000,
             'unit'       => 'buah',
             'specs'      => ['Ukuran: 53 x 47 cm', 'Tebal: 4 cm'],
         ],
