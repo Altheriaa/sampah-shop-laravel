@@ -1,27 +1,108 @@
 @extends('layouts.main')
 
 @section('title', 'Produk Daur Ulang')
-@section('keywords', 'produk daur ulang, paving block plastik, roster kaca, tegel kaca')
+@section('keywords', 'produk daur ulang, paving block plastik, roster kaca, tegel kaca, GRC serat pisang abaca')
 @section('description', 'Produk bahan bangunan hasil daur ulang sampah. Ramah lingkungan, tahan lama.')
+
+{{-- ================================================================
+     DATA PRODUK
+     Semua kartu dibuat dari array ini. Untuk menambah / mengubah
+     produk cukup edit di sini, tidak perlu menyalin blok HTML lagi.
+     ================================================================ --}}
+@php
+    $waProduk = '6285215094145'; // nomor WhatsApp untuk pemesanan produk
+    $waCustom = '6281360024335'; // nomor WhatsApp untuk konsultasi custom order
+
+    $products = [
+        [
+            'name'       => 'Tegel Kaca Premium',
+            'image'      => 'img/product/tegel.jpeg',
+            'alt'        => 'Tegel dari Limbah Kaca',
+            'category'   => 'kaca bangunan',   // pisahkan dengan spasi
+            'label'      => 'Limbah Kaca',
+            'badge'      => ['text' => 'Terbaru', 'icon' => 'fa-star', 'type' => 'new'],
+            'desc'       => 'Tegel estetik dari limbah kaca daur ulang. Solusi cantik untuk lantai dan dinding hunian.',
+            'features'   => ['Tahan Air', 'Anti Retak', 'Estetik'],
+            'rating'     => 5.0,
+            'reviews'    => 89,
+            'price'      => 15000,
+            'unit'       => 'buah',
+            'specs'      => [],
+        ],
+        [
+            'name'       => 'Roster Kaca Arsitektur',
+            'image'      => 'img/product/roster.jpeg',
+            'alt'        => 'Roster dari Limbah Kaca',
+            'category'   => 'kaca bangunan',
+            'label'      => 'Limbah Kaca',
+            'badge'      => ['text' => 'Best Seller', 'icon' => 'fa-fire', 'type' => 'bestseller'],
+            'desc'       => 'Roster ventilasi modern dari limbah kaca. Memberikan cahaya alami maksimal.',
+            'features'   => ['Ventilasi Baik', 'Cahaya Alami', 'Modern'],
+            'rating'     => 4.8,
+            'reviews'    => 65,
+            'price'      => 12500,
+            'unit'       => 'buah',
+            'specs'      => [],
+        ],
+        [
+            'name'       => 'Paving Block Plastik',
+            'image'      => 'img/product/paving.jpeg',
+            'alt'        => 'Paving Block dari Limbah Plastik',
+            'category'   => 'plastik bangunan',
+            'label'      => 'Limbah Plastik',
+            'badge'      => ['text' => 'Terbaru', 'icon' => 'fa-star', 'type' => 'new'],
+            'desc'       => 'Paving block berkualitas dari limbah plastik. Kuat dan tahan lama untuk halaman.',
+            'features'   => ['Kuat & Kokoh', 'Anti Slip', 'Tahan Cuaca'],
+            'rating'     => 4.9,
+            'reviews'    => 127,
+            'price'      => 2000,
+            'unit'       => 'buah',
+            'specs'      => [],
+        ],
+        [
+            'name'       => 'GRC dari Serat Pisang ABACA',
+            'image'      => 'img/product/grc.jpeg',
+            'alt'        => 'GRC dari Serat Pisang ABACA',
+            'category'   => 'serat bangunan',
+            'label'      => 'Serat Pisang ABACA',
+            'badge'      => ['text' => 'Best Seller', 'icon' => 'fa-fire', 'type' => 'bestseller'],
+            'desc'       => 'GRC modern dari serat pisang ABACA. Tampilan estetik, pemasangan lebih praktis dan cepat.',
+            'features'   => ['Ventilasi Baik', 'Tahan Cuaca', 'Cepat & Hemat Biaya'],
+            'rating'     => 4.8,
+            'reviews'    => 65,
+            'price'      => 130000,
+            'unit'       => 'buah',
+            'specs'      => ['Ukuran: 53 x 47 cm', 'Tebal: 4 cm'],
+        ],
+    ];
+@endphp
 
 @section('styles')
 <style>
     /* ============ PRODUCT CARDS - ECO FRESH THEME ============ */
+
+    /* Flex + justify-content:center => kartu di baris terakhir
+       (mis. GRC) otomatis berada di tengah, juga saat difilter. */
     .product-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
         gap: 30px;
         margin-top: 40px;
     }
 
     .product-card {
+        flex: 0 1 calc((100% - 60px) / 3); /* 3 kartu per baris */
+        min-width: 300px;
         background: #fff;
         border-radius: 20px;
         box-shadow: 0 8px 30px rgba(12, 43, 34, 0.08);
-        transition: all 0.4s ease;
+        transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
         overflow: hidden;
         position: relative;
         border: 1px solid rgba(14, 143, 111, 0.08);
+        display: flex;
+        flex-direction: column;
     }
 
     .product-card:hover {
@@ -30,12 +111,13 @@
         border-color: var(--primary);
     }
 
-    /* Image Container */
+    /* Image */
     .product-img-wrap {
         position: relative;
         height: 240px;
         overflow: hidden;
         background: linear-gradient(135deg, #f0f9f6, #e6f7f2);
+        flex-shrink: 0;
     }
 
     .product-img-wrap img {
@@ -72,6 +154,7 @@
         display: flex;
         align-items: center;
         gap: 5px;
+        width: fit-content;
     }
 
     .product-badge.new {
@@ -83,7 +166,7 @@
         background: linear-gradient(135deg, #ef4444, #dc2626);
     }
 
-    /* Wishlist Button */
+    /* Wishlist */
     .wishlist-btn {
         position: absolute;
         top: 15px;
@@ -105,7 +188,6 @@
     .wishlist-btn:hover {
         background: #fff;
         transform: scale(1.1);
-        color: #ef4444;
     }
 
     .wishlist-btn i {
@@ -118,13 +200,17 @@
         color: #ef4444;
     }
 
-    /* Product Info */
+    /* Info */
     .product-info {
         padding: 25px;
+        display: flex;
+        flex-direction: column;
+        flex: 1; /* isi kartu mengisi tinggi yang sama */
     }
 
     .product-category {
         display: inline-block;
+        align-self: flex-start;
         font-size: 11px;
         font-weight: 700;
         letter-spacing: 1px;
@@ -178,14 +264,17 @@
         font-size: 10px;
     }
 
-    /* Rating & Stock */
+    /* Rating & stock */
     .product-meta {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
         padding-bottom: 15px;
         border-bottom: 1px solid #f0f0f0;
         margin-bottom: 15px;
+        margin-top: auto; /* dorong bagian bawah kartu agar sejajar */
     }
 
     .product-rating {
@@ -228,7 +317,7 @@
         50% { opacity: 0.5; }
     }
 
-    /* Price & Button */
+    /* Price & button */
     .product-bottom {
         display: flex;
         justify-content: space-between;
@@ -262,6 +351,13 @@
         font-weight: 500;
     }
 
+    .price-spec {
+        font-size: 12px;
+        color: #6B8079;
+        font-weight: 500;
+        margin-top: 2px;
+    }
+
     .btn-order {
         background: linear-gradient(135deg, var(--primary), var(--primary-2));
         color: #fff;
@@ -277,6 +373,7 @@
         transition: all 0.3s ease;
         box-shadow: 0 4px 15px rgba(14, 143, 111, 0.3);
         text-decoration: none;
+        white-space: nowrap;
     }
 
     .btn-order:hover {
@@ -293,7 +390,7 @@
         transform: rotate(-10deg) scale(1.1);
     }
 
-    /* Category Filter */
+    /* Category filter */
     .category-filter {
         display: flex;
         justify-content: center;
@@ -330,7 +427,7 @@
         font-size: 14px;
     }
 
-    /* Value Card */
+    /* Value card */
     .value-card {
         background: #fff;
         border-radius: 16px;
@@ -365,7 +462,7 @@
         transform: rotateY(360deg);
     }
 
-    /* Impact Section */
+    /* Impact section */
     .impact-section {
         background: linear-gradient(135deg, #0C2B22 0%, #0E8F6F 100%);
         color: #fff;
@@ -380,31 +477,31 @@
         background-image: radial-gradient(rgba(255,255,255,.10) 1.4px, transparent 1.4px);
         background-size: 22px 22px;
         opacity: .5;
+        pointer-events: none;
     }
 
-    .impact-stat {
-        text-align: center;
-        padding: 20px;
+    .impact-section > .container {
         position: relative;
         z-index: 1;
     }
 
-    .impact-number {
-        font-size: 3rem;
-        font-weight: 800;
-        color: var(--accent);
-        font-family: 'Ubuntu', sans-serif;
-        margin-bottom: 8px;
-        line-height: 1;
+    .impact-card {
+        height: 100%;
+        text-align: center;
+        padding: 28px 20px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 16px;
+        backdrop-filter: blur(6px);
+        transition: transform 0.3s ease, background 0.3s ease;
     }
 
-    .impact-label {
-        font-size: 14px;
-        color: rgba(255, 255, 255, 0.85);
-        font-weight: 600;
+    .impact-card:hover {
+        transform: translateY(-6px);
+        background: rgba(255, 255, 255, 0.14);
     }
 
-    .impact-icon {
+    .impact-card-icon {
         width: 60px;
         height: 60px;
         background: rgba(242, 183, 5, 0.2);
@@ -417,14 +514,26 @@
         font-size: 24px;
     }
 
-    /* Process Step */
+    .impact-card-title {
+        color: #fff;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .impact-card-desc {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.8);
+        margin: 0;
+    }
+
+    /* Process step */
     .process-step {
         position: relative;
         padding: 25px;
         background: #fff;
         border-radius: 16px;
         border-left: 4px solid var(--primary);
-        box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
         transition: all 0.3s ease;
         height: 100%;
     }
@@ -454,12 +563,12 @@
     /* Responsive */
     @media (max-width: 768px) {
         .product-grid {
-            grid-template-columns: 1fr;
             gap: 20px;
         }
 
-        .impact-number {
-            font-size: 2.2rem;
+        .product-card {
+            flex: 1 1 100%;
+            min-width: 0;
         }
 
         .product-bottom {
@@ -470,6 +579,17 @@
 
         .btn-order {
             justify-content: center;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .product-card,
+        .product-img-wrap img,
+        .value-icon,
+        .impact-card,
+        .product-stock .dot {
+            transition: none;
+            animation: none;
         }
     }
 </style>
@@ -505,47 +625,39 @@
     </div>
     <!-- Hero End -->
 
-    <!-- Impact Counter Section -->
+    <!-- Impact Section -->
     <div class="container-fluid impact-section py-5">
         <div class="container py-4">
             <div class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
                 <h2 class="text-white mb-3">Komitmen Kami untuk Lingkungan</h2>
                 <p class="text-white-50">Setiap produk yang Anda beli adalah kontribusi nyata untuk bumi yang lebih baik</p>
             </div>
-            
+
             <div class="row g-4">
                 <div class="col-md-3 col-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="impact-card">
-                        <div class="impact-card-icon">
-                            <i class="fas fa-recycle"></i>
-                        </div>
+                        <div class="impact-card-icon"><i class="fas fa-recycle"></i></div>
                         <h5 class="impact-card-title">Daur Ulang</h5>
                         <p class="impact-card-desc">Mengolah sampah menjadi produk bernilai tinggi</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-6 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="impact-card">
-                        <div class="impact-card-icon">
-                            <i class="fas fa-box-open"></i>
-                        </div>
+                        <div class="impact-card-icon"><i class="fas fa-box-open"></i></div>
                         <h5 class="impact-card-title">Kualitas Premium</h5>
                         <p class="impact-card-desc">Produk tahan lama dengan standar tinggi</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-6 wow fadeInUp" data-wow-delay="0.5s">
                     <div class="impact-card">
-                        <div class="impact-card-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
+                        <div class="impact-card-icon"><i class="fas fa-users"></i></div>
                         <h5 class="impact-card-title">Memberdayakan</h5>
                         <p class="impact-card-desc">Mendukung ekonomi lokal dan komunitas</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-6 wow fadeInUp" data-wow-delay="0.7s">
                     <div class="impact-card">
-                        <div class="impact-card-icon">
-                            <i class="fas fa-tree"></i>
-                        </div>
+                        <div class="impact-card-icon"><i class="fas fa-tree"></i></div>
                         <h5 class="impact-card-title">Go Green</h5>
                         <p class="impact-card-desc">Mengurangi jejak karbon untuk masa depan</p>
                     </div>
@@ -553,7 +665,7 @@
             </div>
         </div>
     </div>
-    <!-- Impact Counter End -->
+    <!-- Impact Section End -->
 
     <!-- Value Proposition -->
     <div class="container-fluid py-5">
@@ -606,190 +718,87 @@
 
             <!-- Category Filter -->
             <div class="category-filter wow fadeInUp" data-wow-delay="0.2s">
-                <button class="filter-btn active" data-category="all">
+                <button type="button" class="filter-btn active" data-category="all">
                     <i class="fas fa-th-large"></i>Semua Produk
                 </button>
-                <button class="filter-btn" data-category="kaca">
+                <button type="button" class="filter-btn" data-category="kaca">
                     <i class="fas fa-wine-glass"></i>Bahan Kaca
                 </button>
-                <button class="filter-btn" data-category="plastik">
+                <button type="button" class="filter-btn" data-category="plastik">
                     <i class="fas fa-wine-bottle"></i>Bahan Plastik
                 </button>
-                <button class="filter-btn" data-category="bangunan">
+                <button type="button" class="filter-btn" data-category="serat">
+                    <i class="fas fa-seedling"></i>Serat Alam
+                </button>
+                <button type="button" class="filter-btn" data-category="bangunan">
                     <i class="fas fa-home"></i>Bahan Bangunan
                 </button>
             </div>
 
             <!-- Product Grid -->
             <div class="product-grid">
-                <!-- Product 1 - Tegel -->
-                <div class="product-card wow fadeInUp" data-wow-delay="0.1s" data-category="kaca bangunan">
-                    <div class="product-img-wrap">
-                        <img src="{{ asset('img/product/tegel.jpeg') }}" alt="Tegel dari Limbah Kaca">
-                        <div class="product-badges">
-                            <span class="product-badge"><i class="fas fa-leaf"></i>Eco-Friendly</span>
-                            <span class="product-badge bestseller"><i class="fas fa-fire"></i>Terbaru</span>
-                        </div>
-                        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Limbah Kaca</span>
-                        <h3 class="product-title">Tegel Kaca Premium</h3>
-                        <p class="product-desc">Tegel estetik dari limbah kaca daur ulang. Solusi cantik pengganti pasir alam.</p>
-                        <div class="product-features">
-                            <span class="product-feature"><i class="fas fa-check"></i>Tahan Air</span>
-                            <span class="product-feature"><i class="fas fa-check"></i>Anti Retak</span>
-                            <span class="product-feature"><i class="fas fa-check"></i>Estetik</span>
-                        </div>
-                        <div class="product-meta">
-                            <div class="product-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <span>5.0 (89)</span>
-                            </div>
-                            <div class="product-stock"><span class="dot"></span>Stok Tersedia</div>
-                        </div>
-                        <div class="product-bottom">
-                            <div class="product-price">
-                                <span class="price-label">Harga</span>
-                                <span class="price-new">Rp 15.000<span class="price-unit">/buah</span></span>
-                            </div>
-                            <a href="https://wa.me/6285215094145?text=Halo,%20saya%20tertarik%20memesan%20Tegel%20Kaca" target="_blank" class="btn-order">
-                                <i class="fab fa-whatsapp"></i>Pesan
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                @foreach ($products as $i => $p)
+                    @php
+                        $waText  = rawurlencode('Halo, saya tertarik memesan ' . $p['name']);
+                        $rounded = round($p['rating'] * 2) / 2; // bulatkan ke 0.5 terdekat
+                    @endphp
 
-                <!-- Product 2 - Roster -->
-                <div class="product-card wow fadeInUp" data-wow-delay="0.3s" data-category="kaca bangunan">
-                    <div class="product-img-wrap">
-                        <img src="{{ asset('img/product/roster.jpeg') }}" alt="Roster dari Limbah Kaca">
-                        <div class="product-badges">
-                            <span class="product-badge"><i class="fas fa-leaf"></i>Eco-Friendly</span>
-                            <span class="product-badge bestseller"><i class="fas fa-fire"></i>Best Seller</span>
-                        </div>
-                        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Limbah Kaca</span>
-                        <h3 class="product-title">Roster Kaca Arsitektur</h3>
-                        <p class="product-desc">Roster ventilasi modern dari limbah kaca. Memberikan cahaya alami maksimal.</p>
-                        <div class="product-features">
-                            <span class="product-feature"><i class="fas fa-check"></i>Ventilasi Baik</span>
-                            <span class="product-feature"><i class="fas fa-check"></i>Cahaya Alami</span>
-                            <span class="product-feature"><i class="fas fa-check"></i>Modern</span>
-                        </div>
-                        <div class="product-meta">
-                            <div class="product-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                                <span>4.8 (65)</span>
+                    <div class="product-card wow fadeInUp" data-wow-delay="{{ number_format(0.1 + ($i % 3) * 0.2, 1) }}s" data-category="{{ $p['category'] }}">
+                        <div class="product-img-wrap">
+                            <img src="{{ asset($p['image']) }}" alt="{{ $p['alt'] }}" loading="lazy">
+                            <div class="product-badges">
+                                <span class="product-badge"><i class="fas fa-leaf"></i>Eco-Friendly</span>
+                                <span class="product-badge {{ $p['badge']['type'] }}">
+                                    <i class="fas {{ $p['badge']['icon'] }}"></i>{{ $p['badge']['text'] }}
+                                </span>
                             </div>
-                            <div class="product-stock"><span class="dot"></span>Stok Tersedia</div>
+                            <button type="button" class="wishlist-btn" aria-label="Simpan {{ $p['name'] }} ke favorit">
+                                <i class="far fa-heart"></i>
+                            </button>
                         </div>
-                        <div class="product-bottom">
-                            <div class="product-price">
-                                <span class="price-label">Harga</span>
-                                <span class="price-new">Rp 12.500<span class="price-unit">/buah</span></span>
-                            </div>
-                            <a href="https://wa.me/6285215094145?text=Halo,%20saya%20tertarik%20memesan%20Paving%20Block" target="_blank" class="btn-order">
-                                <i class="fab fa-whatsapp"></i>Pesan
-                            </a>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Product 3 - Paving Block -->
-                <div class="product-card wow fadeInUp" data-wow-delay="0.5s" data-category="plastik bangunan">
-                    <div class="product-img-wrap">
-                        <img src="{{ asset('img/product/paving.jpeg') }}" alt="Paving Block dari Limbah Plastik">
-                        <div class="product-badges">
-                            <span class="product-badge"><i class="fas fa-leaf"></i>Eco-Friendly</span>
-                            <span class="product-badge bestseller"><i class="fas fa-star"></i>Terbaru</span>
-                        </div>
-                        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Limbah Plastik</span>
-                        <h3 class="product-title">Paving Block Plastik</h3>
-                        <p class="product-desc">Paving block berkualitas dari limbah plastik. Kuat, tahan lama untuk halaman.</p>
-                        <div class="product-features">
-                            <span class="product-feature"><i class="fas fa-check"></i>Kuat & Kokoh</span>
-                            <span class="product-feature"><i class="fas fa-check"></i>Anti Slip</span>
-                            <span class="product-feature"><i class="fas fa-check"></i>Tahan Cuaca</span>
-                        </div>
-                        <div class="product-meta">
-                            <div class="product-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <span>4.9 (127)</span>
+                        <div class="product-info">
+                            <span class="product-category">{{ $p['label'] }}</span>
+                            <h3 class="product-title">{{ $p['name'] }}</h3>
+                            <p class="product-desc">{{ $p['desc'] }}</p>
+
+                            <div class="product-features">
+                                @foreach ($p['features'] as $feature)
+                                    <span class="product-feature"><i class="fas fa-check"></i>{{ $feature }}</span>
+                                @endforeach
                             </div>
-                            <div class="product-stock"><span class="dot"></span>Stok Tersedia</div>
-                        </div>
-                        <div class="product-bottom">
-                            <div class="product-price">
-                                <span class="price-label">Harga</span>
-                                <span class="price-new">Rp 2.000<span class="price-unit">/buah</span></span>
+
+                            <div class="product-meta">
+                                <div class="product-rating" aria-label="Rating {{ number_format($p['rating'], 1) }} dari 5">
+                                    @for ($s = 1; $s <= 5; $s++)
+                                        @if ($rounded >= $s)
+                                            <i class="fas fa-star"></i>
+                                        @elseif ($rounded >= $s - 0.5)
+                                            <i class="fas fa-star-half-alt"></i>
+                                        @else
+                                            <i class="far fa-star"></i>
+                                        @endif
+                                    @endfor
+                                    <span>{{ number_format($p['rating'], 1) }} ({{ $p['reviews'] }})</span>
+                                </div>
+                                <div class="product-stock"><span class="dot"></span>Stok Tersedia</div>
                             </div>
-                            <a href="https://wa.me/6285215094145?text=Halo,%20saya%20tertarik%20memesan%20Paving%20Block" target="_blank" class="btn-order">
-                                <i class="fab fa-whatsapp"></i>Pesan
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Product 4 - GRC serat pisang abca -->
-                <div class="product-card wow fadeInUp" data-wow-delay="0.3s" data-category="serat bangunan">
-                    <div class="product-img-wrap">
-                        <img src="{{ asset('img/product/grc.jpeg') }}" alt="GRC dari Serat Pisang ABCA">
-                        <div class="product-badges">
-                            <span class="product-badge"><i class="fas fa-leaf"></i>Eco-Friendly</span>
-                            <span class="product-badge bestseller"><i class="fas fa-fire"></i>Best Seller</span>
-                        </div>
-                        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Serat Pisang ABCA</span>
-                        <h3 class="product-title">GRC dari Serat Pisang ABCA</h3>
-                        <p class="product-desc">GRC modern dari serat pisang ABCA. Memberikan kesan estetika dan pemasangan lebih praktis dan cepat.</p>
-                        <div class="product-features">
-                            <span class="product-feature"><i class="fas fa-check"></i>Ventilasi Baik</span>
-                            <span class="product-feature"><i class="fas fa-check"></i>Tahan Cuaca</span>
-                            <span class="product-feature"><i class="fas fa-check"></i>Cepat & Hemat Biaya</span>
-                        </div>
-                        <div class="product-meta">
-                            <div class="product-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                                <span>4.8 (65)</span>
+
+                            <div class="product-bottom">
+                                <div class="product-price">
+                                    <span class="price-label">Harga</span>
+                                    <span class="price-new">Rp {{ number_format($p['price'], 0, ',', '.') }}<span class="price-unit">/{{ $p['unit'] }}</span></span>
+                                    @foreach ($p['specs'] as $spec)
+                                        <span class="price-spec">{{ $spec }}</span>
+                                    @endforeach
+                                </div>
+                                <a href="https://wa.me/{{ $waProduk }}?text={{ $waText }}" target="_blank" rel="noopener" class="btn-order">
+                                    <i class="fab fa-whatsapp"></i>Pesan
+                                </a>
                             </div>
-                            <div class="product-stock"><span class="dot"></span>Stok Tersedia</div>
-                        </div>
-                        <div class="product-bottom">
-                            <div class="product-price">
-                                <span class="price-label">Harga</span>
-                                <span class="price-new">Rp 150.000<span class="price-unit">/buah</span></span>
-                                <span class="size-0">Ukuran: 53x47cm</span>
-                                <span class="thick-0">Ketebalan: 4cm</span>
-                            </div>
-                            <a href="https://wa.me/6285215094145?text=Halo,%20saya%20tertarik%20memesan%20GRC%20dari%20Serat%20Pisang%20ABCA" target="_blank" class="btn-order">
-                                <i class="fab fa-whatsapp"></i>Pesan
-                            </a>
                         </div>
                     </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
@@ -840,14 +849,14 @@
     <div class="container-fluid py-5">
         <div class="container py-5">
             <div class="bg-primary rounded-4 p-5 text-center position-relative overflow-hidden wow fadeInUp" data-wow-delay="0.1s" style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%) !important;">
-                <div class="position-absolute top-0 start-0 w-100 h-100" style="background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 20px 20px;"></div>
+                <div class="position-absolute top-0 start-0 w-100 h-100" style="background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 20px 20px; pointer-events: none;"></div>
                 <div class="position-relative" style="z-index: 1;">
                     <h1 class="display-5 text-white mb-3">Butuh Produk dengan Spesifikasi Khusus?</h1>
                     <p class="text-white-50 mb-4 mx-auto" style="max-width: 600px;">
                         Kami menerima pesanan khusus dengan ukuran, warna, dan desain sesuai kebutuhan proyek Anda.
                     </p>
                     <div class="d-flex gap-3 justify-content-center flex-wrap">
-                        <a href="https://wa.me/6281360024335?text=Halo,%20saya%20ingin%20konsultasi%20custom%20order" class="btn btn-light rounded-pill px-5 py-3">
+                        <a href="https://wa.me/{{ $waCustom }}?text={{ rawurlencode('Halo, saya ingin konsultasi custom order') }}" target="_blank" rel="noopener" class="btn btn-light rounded-pill px-5 py-3">
                             <i class="fab fa-whatsapp me-2"></i>Konsultasi Sekarang
                         </a>
                     </div>
@@ -860,65 +869,44 @@
 
 @push('scripts')
 <script>
-    $(document).ready(function(){
-        // Initialize WOW.js
+    $(document).ready(function () {
+        // WOW.js (hapus baris ini jika sudah diinisialisasi di layouts/main.blade.php)
         new WOW().init();
 
-        // Category Filter
-        $('.filter-btn').on('click', function(){
-            const category = $(this).data('category');
-            
+        // ---------- Filter kategori ----------
+        // Mencocokkan kata utuh, jadi "kaca" tidak salah cocok dengan kategori lain.
+        function hasCategory($card, category) {
+            var cats = ' ' + ($card.attr('data-category') || '') + ' ';
+            return cats.indexOf(' ' + category + ' ') !== -1;
+        }
+
+        $('.filter-btn').on('click', function () {
+            var category = $(this).data('category');
+
             $('.filter-btn').removeClass('active');
             $(this).addClass('active');
-            
-            if(category === 'all') {
-                $('.product-card').fadeIn(400);
-            } else {
-                $('.product-card').fadeOut(200);
-                setTimeout(() => {
-                    $(`.product-card[data-category*="${category}"]`).fadeIn(400);
-                }, 200);
-            }
-        });
 
-        // Wishlist Toggle
-        $('.wishlist-btn').on('click', function(e){
-            e.preventDefault();
-            const icon = $(this).find('i');
-            icon.toggleClass('far fas').toggleClass('text-danger');
-            
-            if(icon.hasClass('fas')) {
-                $(this).css('background', '#fff0f0');
-            } else {
-                $(this).css('background', 'rgba(255, 255, 255, 0.95)');
-            }
-        });
+            var $cards = $('.product-card');
 
-        // Counter Animation
-        var counted = 0;
-        $(window).on('scroll', function() {
-            if (counted === 0 && $('.impact-section').length) {
-                var oTop = $('.impact-section').offset().top - window.innerHeight;
-                if ($(window).scrollTop() > oTop) {
-                    $('.counter').each(function() {
-                        var $this = $(this);
-                        var countTo = $this.attr('data-target');
-                        $({ countNum: $this.text() }).animate({
-                            countNum: countTo
-                        }, {
-                            duration: 2000,
-                            easing: 'linear',
-                            step: function() {
-                                $this.text(Math.floor(this.countNum));
-                            },
-                            complete: function() {
-                                $this.text(this.countNum);
-                            }
-                        });
-                    });
-                    counted = 1;
+            // stop(true, true) mencegah animasi menumpuk jika tombol diklik cepat
+            $cards.stop(true, true).fadeOut(200).promise().done(function () {
+                if (category === 'all') {
+                    $cards.fadeIn(400);
+                } else {
+                    $cards.filter(function () {
+                        return hasCategory($(this), category);
+                    }).fadeIn(400);
                 }
-            }
+            });
+        });
+
+        // ---------- Wishlist ----------
+        $('.wishlist-btn').on('click', function (e) {
+            e.preventDefault();
+            var $icon = $(this).find('i');
+            $icon.toggleClass('far fas').toggleClass('text-danger');
+
+            $(this).css('background', $icon.hasClass('fas') ? '#fff0f0' : 'rgba(255, 255, 255, 0.95)');
         });
     });
 </script>
