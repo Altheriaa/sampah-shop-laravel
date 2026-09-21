@@ -28,6 +28,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->authGuard('web')
             ->sidebarCollapsibleOnDesktop()
             ->brandName('Aplikasi Start-Up Bank Sampah')
             ->font('Poppins')
